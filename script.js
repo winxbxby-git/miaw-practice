@@ -9,9 +9,10 @@ function showForm(mode) {
     
     form.classList.remove('hidden');
     btns.forEach(b => b.classList.remove('active-btn'));
-    event.target.classList.add('active-btn');
+    
+    // Highlight the selected button
+    event.currentTarget.classList.add('active-btn');
 
-    // Reset fields
     extras.innerHTML = '';
     passField.classList.remove('hidden');
     passField.required = true;
@@ -33,23 +34,20 @@ function showForm(mode) {
 document.getElementById('authForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
+    // Capture data
     const payload = {
-        intent: selectedMode, // "register", "login", or "guest"
+        intent: selectedMode,
         user_info: {
             first_name: document.getElementById('fname')?.value || 'Guest',
             last_name: document.getElementById('lname')?.value || '',
             email: document.getElementById('email').value,
-            is_authenticated: (selectedMode !== 'guest')
-        },
-        metadata: {
-            source: window.location.href,
-            browser: navigator.userAgent
+            login_date: new Date().toLocaleDateString()
         }
     };
 
-    // Store in Session Storage for Agentforce to scrape
-    sessionStorage.setItem('agentforce_payload', JSON.stringify(payload));
+    // 1. Store locally so it persists for next time
+    localStorage.setItem('surescripts_user', JSON.stringify(payload));
     
-    document.getElementById('debug-output').innerHTML = 
-        `<strong>Data Sent to Agentforce:</strong><pre>${JSON.stringify(payload, null, 2)}</pre>`;
+    // 2. Redirect to the new page
+    window.location.href = 'workbench.html';
 });
