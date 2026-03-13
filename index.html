@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentforce Auth Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-card">
+        <h2 id="formTitle">Welcome</h2>
+        <p id="formSub">Select how you'd like to continue</p>
+
+        <div class="button-group">
+            <button class="nav-btn" onclick="showForm('login')">Login</button>
+            <button class="nav-btn" onclick="showForm('register')">Register</button>
+            <button class="nav-btn" onclick="showForm('guest')">Guest</button>
+        </div>
+
+        <form id="authForm" class="hidden">
+            <div id="extraFields"></div>
+            <input type="email" id="email" placeholder="Email Address" required>
+            <input type="password" id="password" id="passField" placeholder="Password">
+            <button type="submit" id="submitBtn">Proceed to Agent</button>
+        </form>
+
+        <div id="debug-output"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
